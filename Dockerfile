@@ -7,6 +7,8 @@ COPY wrapper.sh /
 RUN apk --no-cache --no-progress update && \
     apk --no-cache --no-progress add samba samba-client krb5 openntpd samba-winbind samba-winbind-clients cifs-utils sshfs && \
     adduser -D -g samba samba && \
+    echo "samba:pippo" | chpasswd && \
+    (echo "pippo"; echo "pippo") | smbpasswd -a -s samba && \
     chmod +x wrapper.sh && \
     chown -R samba:samba /var/lib/samba /var/log/samba /var/cache/samba /run/samba
 
